@@ -1,0 +1,17 @@
+{% extends "pages/base.html" %}
+{% block title %} student {% endblock%}
+{% block content %}
+<center>
+    <h1>Các lớp mà bạn đang theo học</h1>
+    {% for s in stcls %}
+        {% if s.student is student.id %}
+            {% for s1 in clsname %}
+                {% if s1.idcls is s.classId %}
+                    <center><a href="/memcls/{{acc.id}}/{{student.id}}/{{s.classId}}"><button><span class = "page-header" style = "font-size:10px">{{s1.name}}</span></button></a></center>
+                {% endif%}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+</center>
+<center><a href="/student_home/{{acc.id}}/{{student.id}}/"><button><span class = "page-header" style = "font-size:10px">Tro ve trang truoc</span></button></a></center>
+{% endblock %}}

@@ -1,0 +1,21 @@
+
+<!doctype html>
+<title>Student information</title>
+<header>
+    {% load staticfiles %}
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <!--<meta charset="UTF-8">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'% }" type= "text/c">
+<body style="background-image:url({%static 'images/12.jpg' %});">
+
+          <h1>
+            Thông tin sinh viên đăng nhập
+              <h3> Họ Tên : {{student.name}}</h3>
+              <h3>Mssv : {{student.mssv}}</h3>
+              <h3> Lớp :{{student.student_class}}</h3>
+              <h3> Liên hệ : {{student.email}}</h3>
+          </h1>
+<a href="/student_home/{{acc.id}}/{{student.id}}/"><button><span class = "page-header" style = "font-size:30px">Trở lại trang trước</span></button></a>
+</body>
