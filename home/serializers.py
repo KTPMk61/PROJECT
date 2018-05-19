@@ -24,7 +24,7 @@ class lecturer_classSerializer(serializers.ModelSerializer):
 class pointSerializer(serializers.ModelSerializer):
     class Meta:
         model = point
-        fields = ('id','StudentId','SubjectId','point','point2')
+        fields = ('id','studentId','classId','subjectId','point','point2')
 
 class student_classSerializer(serializers.ModelSerializer):
     class Meta:

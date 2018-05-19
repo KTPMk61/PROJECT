@@ -2,6 +2,13 @@ from django.shortcuts import render,render_to_response,redirect
 from .models import *
 from .form import *
 from django.forms.models import modelformset_factory
+
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from .serializers import *
+
 def home(request):
     form = LoginForm()
     if request.method == 'POST':
@@ -173,3 +180,311 @@ def viewclasst(request,idA,idT):
     clsname = grade.objects.all()
     sub = subject.objects.all()
     return render(request, 'pages/viewclasst.html', {'acc': a, 'teacher':t, 'stcls': cls, 'clsname': clsname,'subjects':sub})
+
+#REST API Controller
+
+#List (GET + POST)
+@csrf_exempt
+def acount_list(request):
+    if request.method == 'GET':
+        obj = acount.objects.all()
+        serializer = acountSerializer(obj, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = acountSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def grade_list(request):
+    if request.method == 'GET':
+        obj = grade.objects.all()
+        serializer = gradeSerializer(obj, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = gradeSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def lecturer_list(request):
+    if request.method == 'GET':
+        obj = lecturer.objects.all()
+        serializer = lecturerSerializer(obj, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = lecturerSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def lecturer_class_list(request):
+    if request.method == 'GET':
+        obj = lecturer_class.objects.all()
+        serializer = lecturer_classSerializer(obj, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = lecturer_classSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def point_list(request):
+    if request.method == 'GET':
+        obj = point.objects.all()
+        serializer = pointSerializer(obj, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = pointSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def student_class_list(request):
+    if request.method == 'GET':
+        obj = student_class.objects.all()
+        serializer = student_classSerializer(obj, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = student_classSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def subject_list(request):
+    if request.method == 'GET':
+        obj = subject.objects.all()
+        serializer = subjectSerializer(obj, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = subjectSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def student_list(request):
+    if request.method == 'GET':
+        obj = student.objects.all()
+        serializer = studentSerializer(obj, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = studentSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+#Detail (GET + PUT + DELETE)
+@csrf_exempt
+def acount_detail(request, pk):
+    try:
+        obj = acount.objects.get(pk=pk)
+    except acount.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = acountSerializer(obj)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = acountSerializer(obj, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        obj.delete()
+        return HttpResponse(status=204)
+
+@csrf_exempt
+def grade_detail(request, pk):
+    try:
+        obj = grade.objects.get(pk=pk)
+    except grade.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = gradeSerializer(obj)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = gradeSerializer(obj, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        obj.delete()
+        return HttpResponse(status=204)
+
+@csrf_exempt
+def lecturer_detail(request, pk):
+    try:
+        obj = lecturer.objects.get(pk=pk)
+    except lecturer.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = lecturerSerializer(obj)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = lecturerSerializer(obj, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        obj.delete()
+        return HttpResponse(status=204)
+
+@csrf_exempt
+def lecturer_class_detail(request, pk):
+    try:
+        obj = lecturer_class.objects.get(pk=pk)
+    except lecturer_class.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = lecturer_classSerializer(obj)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = lecturer_classSerializer(obj, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        obj.delete()
+        return HttpResponse(status=204)
+
+@csrf_exempt
+def point_detail(request, pk):
+    try:
+        obj = point.objects.get(pk=pk)
+    except point.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = pointSerializer(obj)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = pointSerializer(obj, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        obj.delete()
+        return HttpResponse(status=204)
+
+@csrf_exempt
+def student_class_detail(request, pk):
+    try:
+        obj = student_class.objects.get(pk=pk)
+    except student_class.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = student_classSerializer(obj)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = student_classSerializer(obj, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        obj.delete()
+        return HttpResponse(status=204)
+
+@csrf_exempt
+def subject_detail(request, pk):
+    try:
+        obj = subject.objects.get(pk=pk)
+    except subject.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = subjectSerializer(obj)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = subjectSerializer(obj, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        obj.delete()
+        return HttpResponse(status=204)
+
+@csrf_exempt
+def student_detail(request, pk):
+    try:
+        obj = student.objects.get(pk=pk)
+    except student.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = studentSerializer(obj)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = studentSerializer(obj, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        obj.delete()
+        return HttpResponse(status=204)
