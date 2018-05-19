@@ -5,9 +5,9 @@ class LoginForm(forms.Form):
     password =  forms.CharField(label= 'Mật khẩu',widget= forms.PasswordInput())
 class TeacherRegisterForm(forms.Form):
     fullname = forms.CharField(label = 'Họ Tên', max_length= 30)
-    khoa = forms.CharField(label='Khoa/Vien',max_length=30)
-    email = forms.CharField(label='Emails/SDT',max_length=30)
-    bir = forms.CharField(label='Ngay sinh',max_length=30)
+    khoa = forms.CharField(label='Khoa/Viện',max_length=30)
+    email = forms.CharField(label='Email/SĐT',max_length=30)
+    bir = forms.CharField(label='Ngày sinh',max_length=30)
     password =  forms.CharField(label= 'Mật khẩu',widget= forms.PasswordInput())
     def save(self):
         fullname = self.cleaned_data['fullname']

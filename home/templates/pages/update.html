@@ -21,8 +21,10 @@
                     <h1>{{form}}</h1>
                 {% endfor %}
             <br/>
-            <input type = "submit" style="font-size:30px" value = "Cập Nhật" />
+            <button type="submit" style="color:#C7CED6 ">Cập nhật</button>
     </form>
 </center>
-<center><a href="/viewclasst/{{acc.id}}/{{teacher.id}}/"><button><span class = "page-header" style = "font-size:10px">Tro ve trang truoc</span></button></a></center>
+<center>
+    <button><a class="thea" href="/viewclasst/{{acc.id}}/{{teacher.id}}/" target="_self"><span class = "page-header" style = "font-size:10px">Trở về trang trước</a></button>
+</center>
 {% endblock %}}

@@ -19,11 +19,11 @@
         <form method='POST' action='.'>
             {% csrf_token %}
             {{form.as_p}}
-            <input type = "submit" style = "font-size:40px" value = "Tạo" />
+            <button type="submit" style="color: #C7CED6">Tạo</button>
         </form>
    </center>
 <br>
 
-<center><a href="/teacher/{{acc.id}}/{{teacher.id}}"><button><span class = "page-header" style = "font-size:10px">Tro ve trang truoc</span></button></a></center>
+<center><button><a href="/teacher/{{acc.id}}/{{teacher.id}}">Trở về trang trước</a></button></center>
 </div>
 {% endblock %}}
