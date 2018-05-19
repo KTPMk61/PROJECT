@@ -39,4 +39,4 @@ class subjectSerializer(serializers.ModelSerializer):
 class studentSerializer(serializers.ModelSerializer):
     class Meta:
         model = student
-        fields = ('id','name','mssv','email','student_class','password')
+        fields = ('id','name','mssv','email','student_class')
