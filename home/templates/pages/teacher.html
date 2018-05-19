@@ -1,0 +1,20 @@
+{% extends "pages/base.html" %}
+{% block title %} student {% endblock%}
+{% block content %}
+<center>
+    <h1> CHƯƠNG TRÌNH DÀNH CHO GIẢNG VIÊN</h1>
+
+</center>
+   <center>
+       <a href="/viewinft/{{acc.id}}/{{teacher.id}}/"><button><span class = "page-header" style = "font-size:30px">Xem thông tin cá nhân</span></button></a>
+    </br></br> </br>
+        </br> </br>
+    <br><a href="/creatclass/{{acc.id}}/{{teacher.id}}"><button><span class = "page-header" style = "font-size:30px">Tạo lớp</span></button></a>
+    <br> </br> </br>
+    <a href="/viewclasst/{{acc.id}}/{{teacher.id}}"><button><span class = "page-header" style = "font-size:30px">Chỉnh Sửa/Cập Nhật Điểm</span></button></a>
+    <br> </br> </br>
+    <a href="/"><button><span class = "page-header" style = "font-size:30px">Đăng xuất</span></button></a>
+        </br> </br>
+   </center>
+
+{% endblock %}}

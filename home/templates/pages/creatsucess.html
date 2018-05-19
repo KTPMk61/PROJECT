@@ -1,0 +1,9 @@
+{% extends "pages/base.html" %}
+{% block title %} student {% endblock%}
+{% block content %}
+<center>
+    <h1>Tao thanh cong</h1>
+</center>
+<center><a href="/addmem/{{acc.id}}/{{teacher.id}}/{{class.idcls}}/{{subject.subjectId}}/"><button><span class = "page-header" style = "font-size:10px">Them sinh vien vao lop</span></button></a></center>
+<center><a href="/creatclass/{{acc.id}}/{{teacher.id}}/"><button><span class = "page-header" style = "font-size:10px">Tro ve trang truoc</span></button></a></center>
+{% endblock %}}

@@ -1,0 +1,21 @@
+{% extends "pages/base.html" %}
+{% block title %} student {% endblock%}
+{% block content %}
+<center>
+    <h1>Các lớp mà Thầy/Cô đang giảng dạy</h1>
+    {% for s in stcls %}
+        {% if s.lecturerId is teacher.id %}
+            {% for s1 in clsname %}
+                {% if s1.idcls is s.classid %}
+                    {% for s2 in subjects %}
+                        {% if s2.subjectId is s1.subjectId %}
+                            <center><a href="/updatescore/{{acc.id}}/{{teacher.id}}/{{s.classid}}/{{s1.subjectId}}"><button><span class = "page-header" style = "font-size:10px">{{s1.name}}(Môn:{{s2.title}})</span></button></a></center>
+                        {% endif %}
+                    {% endfor %}
+                {% endif%}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+</center>
+<center><a href="/teacher/{{acc.id}}/{{teacher.id}}/"><button><span class = "page-header" style = "font-size:10px">Tro ve trang truoc</span></button></a></center>
+{% endblock %}}

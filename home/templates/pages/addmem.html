@@ -1,0 +1,28 @@
+{% extends "pages/base.html" %}
+{% block title %} student {% endblock%}
+{% block content %}
+<center>
+    <h1>Danh sách học sinh học lớp {{class.name}}</h1>
+    <h4>{{temp.name}}</h4>
+    <h5>{{temp.mssv}}</h5>
+    {% for s in stcls %}
+        {% if s.classId is class.idcls%}
+            {% for s1 in student %}
+                {% if s1.id is s.student %}
+                    <h4>{{s1.name}}</h4>
+                    <h5>{{s1.mssv}}</h5>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+</center>
+<center>
+        <form method='POST' action='.'>
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type = "submit" style = "font-size:40px" value = "Thêm" />
+        </form>
+   </center>
+<center><a href="/teacher/{{acc.id}}/{{teacher.id}}"><button><span class = "page-header" style = "font-size:10px">Trở về trang chủ</span></button></a></center>
+
+{% endblock %}}
