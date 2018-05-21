@@ -24,7 +24,7 @@ class lecturer_classSerializer(serializers.ModelSerializer):
 class pointSerializer(serializers.ModelSerializer):
     class Meta:
         model = point
-        fields = ('id','StudentId','SubjectId','point','point2')
+        fields = ('id','studentId','classId','subjectId','point','point2')
 
 class student_classSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,4 +39,4 @@ class subjectSerializer(serializers.ModelSerializer):
 class studentSerializer(serializers.ModelSerializer):
     class Meta:
         model = student
-        fields = ('id','name','mssv','email','student_class','password')
+        fields = ('id','name','mssv','email','student_class')
