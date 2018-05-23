@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% block title %} student {% endblock%}
+{% block title %} Sislite-Student {% endblock%}
 {% block content %}
 <center>
     <h1>Danh sách học sinh học lớp {{class.name}}</h1>
@@ -20,9 +20,9 @@
         <form method='POST' action='.'>
             {% csrf_token %}
             {{form.as_p}}
-            <input type = "submit" style = "font-size:40px" value = "Thêm" />
+            <button type="submit" style="color: #C7CED6">Thêm
         </form>
    </center>
-<center><a href="/teacher/{{acc.id}}/{{teacher.id}}"><button><span class = "page-header" style = "font-size:10px">Trở về trang chủ</span></button></a></center>
+<center><button><a class="thea"href="/teacher/{{acc.id}}/{{teacher.id}}" target="_self">Trở về trang chủ</a></button></center>
 
 {% endblock %}}

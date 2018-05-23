@@ -30,4 +30,5 @@ urlpatterns=[
     path('api/student_class/<int:pk>',views.student_class_detail),
     path('api/subject/<int:pk>',views.subject_detail),
     path('api/student/<int:pk>',views.student_detail),
+    path('logout',views.logout),
 ]

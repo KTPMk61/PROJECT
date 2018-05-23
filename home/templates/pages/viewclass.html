@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% block title %} student {% endblock%}
+{% block title %} Sislite-Student {% endblock%}
 {% block content %}
 <center>
     <h1>Các lớp mà bạn đang theo học</h1>
@@ -7,11 +7,14 @@
         {% if s.student is student.id %}
             {% for s1 in clsname %}
                 {% if s1.idcls is s.classId %}
-                    <center><a href="/memcls/{{acc.id}}/{{student.id}}/{{s.classId}}"><button><span class = "page-header" style = "font-size:10px">{{s1.name}}</span></button></a></center>
+                    <center>
+                        <button><a class="thea" href="/memcls/{{acc.id}}/{{student.id}}/{{s.classId}}" target="_self">{{s1.name}}</a></button><br/><br/></center>
                 {% endif%}
             {% endfor %}
         {% endif %}
     {% endfor %}
 </center>
-<center><a href="/student_home/{{acc.id}}/{{student.id}}/"><button><span class = "page-header" style = "font-size:10px">Tro ve trang truoc</span></button></a></center>
+<center>
+    <button><a class="thea" href="/student_home/{{acc.id}}/{{student.id}}/" target="_self">Trở về trang trước</a></button>
+</center>
 {% endblock %}}

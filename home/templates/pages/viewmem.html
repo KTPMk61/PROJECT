@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% block title %} student {% endblock%}
+{% block title %} Sislite-Student {% endblock%}
 {% block content %}
 <center>
     <h1>Danh sách học sinh học lớp {{class.name}}</h1>
@@ -13,5 +13,7 @@
         {% endif %}
     {% endfor %}
 </center>
-<center><a href="/viewclass/{{acc.id}}/{{student.id}}/"><button><span class = "page-header" style = "font-size:10px">Tro ve trang truoc</span></button></a></center>
+<center>
+    <button><a class="thea" href="/viewclass/{{acc.id}}/{{student.id}}/" target="_self">Trở về trang trước</a></button>
+</center>
 {% endblock %}}

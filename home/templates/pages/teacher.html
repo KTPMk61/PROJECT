@@ -1,19 +1,19 @@
 {% extends "pages/base.html" %}
-{% block title %} student {% endblock%}
+{% block title %} Sislite-Student {% endblock%}
 {% block content %}
 <center>
     <h1> CHƯƠNG TRÌNH DÀNH CHO GIẢNG VIÊN</h1>
 
 </center>
    <center>
-       <a href="/viewinft/{{acc.id}}/{{teacher.id}}/"><button><span class = "page-header" style = "font-size:30px">Xem thông tin cá nhân</span></button></a>
+       <button><a class="thea" href="/viewinft/{{acc.id}}/{{teacher.id}}/" target="_self">Xem thông tin cá nhân</a>/button>
     </br></br> </br>
         </br> </br>
-    <br><a href="/creatclass/{{acc.id}}/{{teacher.id}}"><button><span class = "page-header" style = "font-size:30px">Tạo lớp</span></button></a>
+    <br><button><a class="thea" href="/creatclass/{{acc.id}}/{{teacher.id}}" target="_self">Tạo lớp</a></button>
     <br> </br> </br>
-    <a href="/viewclasst/{{acc.id}}/{{teacher.id}}"><button><span class = "page-header" style = "font-size:30px">Chỉnh Sửa/Cập Nhật Điểm</span></button></a>
+    <button><a class="thea" href="/viewclasst/{{acc.id}}/{{teacher.id}}" target="_self">Chỉnh Sửa/Cập Nhật Điểm</a></button>
     <br> </br> </br>
-    <a href="/"><button><span class = "page-header" style = "font-size:30px">Đăng xuất</span></button></a>
+    <button><a class="thea" href="/logout" target="_self">Đăng xuất</a></button>
         </br> </br>
    </center>
 
