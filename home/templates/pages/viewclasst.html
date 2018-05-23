@@ -9,7 +9,7 @@
                 {% if s1.idcls is s.classid %}
                     {% for s2 in subjects %}
                         {% if s2.subjectId is s1.subjectId %}
-                            <center><a href="/updatescore/{{acc.id}}/{{teacher.id}}/{{s.classid}}/{{s1.subjectId}}"><button><span class = "page-header" style = "font-size:10px">{{s1.name}}(Môn:{{s2.title}})</span></button></a></center>
+                            <center><button><a class="thea" href="/updatescore/{{acc.id}}/{{teacher.id}}/{{s.classid}}/{{s1.subjectId}}">{{s1.name}}(Môn:{{s2.title}})</a></button></center><br/><br/>
                         {% endif %}
                     {% endfor %}
                 {% endif%}

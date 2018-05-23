@@ -8,7 +8,8 @@
             {% for s1 in clsname %}
                 {% if s1.idcls is s.classId %}
                     <center>
-                        <button><a class="thea" href="/memcls/{{acc.id}}/{{student.id}}/{{s.classId}}" target="_self">{{s1.name}}</a></button><br/><br/></center>
+                        <button><a class="thea" href="/memcls/{{acc.id}}/{{student.id}}/{{s.classId}}" target="_self">{{s1.name}}</a></button><br/><br/>
+                    </center>
                 {% endif%}
             {% endfor %}
         {% endif %}
