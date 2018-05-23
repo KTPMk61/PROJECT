@@ -40,9 +40,19 @@ def home(request):
                 return render(request, 'pages/fail1.html')
         return render(request, 'pages/login.html', {'form': form})
     else:
-        temp2 = lecturer.objects.get(id=LoginCheck.check)
-        acc2 = acount.objects.get(username=temp2.phone_mail)
-        return render(request, 'pages/teacher.html', {'teacher':temp2,'acc':acc2})
+        data = acount.objects.all()
+        data1= lecturer.objects.all()
+        data2= student.objects.all()
+        acc2 = acount.objects.get(id=LoginCheck.check)
+        for s in data:
+                        for s1 in data1:
+                            if acc2.username==s1.phone_mail :
+                                temp= lecturer.objects.get(id=s1.id)
+                                return render(request, 'pages/teacher.html', {'teacher':temp,'acc':acc2})
+                        for s2 in data2:
+                            if acc2.username==s2.mssv:
+                                temp1= student.objects.get(id=s2.id)
+                                return render(request, 'pages/student.html', {'student': temp1,'acc':acc2})
 def register(request):
     form = TeacherRegisterForm()
     if request.method == 'POST':
