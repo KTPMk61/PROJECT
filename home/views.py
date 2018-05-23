@@ -64,6 +64,7 @@ def studentinf(request,idA,idS):
     return HttpResponseRedirect('/')
 def student_home(request,idA,idS):
     if LoginCheck.check==idA:
+        a = acount.objects.get(id=idA)
         s= student.objects.get(id=idS)
         return render(request,'pages/student.html',{'acc':a,'student':s})
     return HttpResponseRedirect('/')
