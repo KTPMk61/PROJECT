@@ -32,4 +32,7 @@ class student(models.Model):
     mssv= models.CharField(max_length=50)
     email= models.CharField(max_length=50)
     student_class = models.CharField(max_length=50)
+class logincheck(models.Model):
+    ip_address = models.GenericIPAddressField()
+    logged_id = models.IntegerField(default=-1)
 # Create your models here.

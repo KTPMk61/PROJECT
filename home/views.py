@@ -10,10 +10,19 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from .serializers import *
-class LoginCheck:
-    check=-1
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 def home(request):
-    if LoginCheck.check==-1:
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == -1:
         form = LoginForm()
         if request.method == 'POST':
             form = LoginForm(request.POST)
@@ -29,13 +38,15 @@ def home(request):
                             if user==s1.phone_mail :
                                 temp= lecturer.objects.get(id=s1.id)
                                 acc= acount.objects.get(username=user)
-                                LoginCheck.check=acc.id
+                                session.logged_id=acc.id
+                                session.save()
                                 return render(request, 'pages/teacher.html', {'teacher':temp,'acc':acc})
                         for s2 in data2:
                             if user==s2.mssv:
                                 temp1= student.objects.get(id=s2.id)
                                 acc1 = acount.objects.get(username=user)
-                                LoginCheck.check=acc1.id
+                                session.logged_id=acc1.id
+                                session.save()
                                 return render(request, 'pages/student.html', {'student': temp1,'acc':acc1})
                 return render(request, 'pages/fail1.html')
         return render(request, 'pages/login.html', {'form': form})
@@ -43,7 +54,7 @@ def home(request):
         data = acount.objects.all()
         data1= lecturer.objects.all()
         data2= student.objects.all()
-        acc2 = acount.objects.get(id=LoginCheck.check)
+        acc2 = acount.objects.get(id=session.logged_id)
         for s in data:
                         for s1 in data1:
                             if acc2.username==s1.phone_mail :
@@ -67,19 +78,31 @@ def register(request):
             return render(request, 'pages/sucess.html')
     return render(request, 'pages/teacherreg.html', {'form': form})
 def studentinf(request,idA,idS):
-    if LoginCheck.check==idA:
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
         a = acount.objects.get(id=idA)
         s= student.objects.get(id=idS)
         return render(request,'pages/studentinf.html',{'acc':a,'student':s})
     return HttpResponseRedirect('/')
 def student_home(request,idA,idS):
-    if LoginCheck.check==idA:
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
         a = acount.objects.get(id=idA)
         s= student.objects.get(id=idS)
         return render(request,'pages/student.html',{'acc':a,'student':s})
     return HttpResponseRedirect('/')
 def teacherview(request,idA,idS):
-    if LoginCheck.check==idA:
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
         a = acount.objects.get(id=idA)
         s = student.objects.get(id=idS)
         cls = student_class.objects.all()
@@ -88,7 +111,11 @@ def teacherview(request,idA,idS):
         return render(request, 'pages/teacherinf.html', {'acc': a, 'student': s,'stclass':cls,'lectclass':lectcls,'teacher':teach})
     return HttpResponseRedirect('/')
 def viewclass(request,idA,idS):
-    if LoginCheck.check==idA:
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
         a = acount.objects.get(id=idA)
         s = student.objects.get(id=idS)
         cls = student_class.objects.all()
@@ -96,7 +123,11 @@ def viewclass(request,idA,idS):
         return render(request, 'pages/viewclass.html', {'acc': a, 'student': s,'stcls':cls,'clsname':clsname})
     return HttpResponseRedirect('/')
 def memcls(request,idA,idS,idC):
-    if LoginCheck.check==idA:
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
         a = acount.objects.get(id=idA)
         s = student.objects.get(id=idS)
         c = grade.objects.get(idcls=idC)
@@ -105,19 +136,31 @@ def memcls(request,idA,idS,idC):
         return render(request, 'pages/viewmem.html', {'acc': a, 'student': s,'class':c ,'stcls': cls,'data':data})
     return HttpResponseRedirect('/')
 def teacher(request,idA,idT):
-    if LoginCheck.check==idA:
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
         a = acount.objects.get(id=idA)
         t = lecturer.objects.get(id=idT)
         return render(request, 'pages/teacher.html', {'acc': a, 'teacher': t})
     return HttpResponseRedirect('/')
 def viewinfteacher(request,idA,idT):
-    if LoginCheck.check==idA:
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
         a = acount.objects.get(id=idA)
         t = lecturer.objects.get(id=idT)
         return render(request,'pages/viewinf.html',{'acc':a,'teacher':t})
     return HttpResponseRedirect('/')
 def creatclass(request,idA,idT):
-    if LoginCheck.check==idA:
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
         idclass = 0
         check = 0
         idclass1 = 1
@@ -165,7 +208,11 @@ def creatclass(request,idA,idT):
         return render(request, 'pages/creatclass.html', {'acc': a, 'teacher': t,'form':form})
     return HttpResponseRedirect('/')
 def addmem(request,idA,idT,idC,idS):
-    if LoginCheck.check==idA:
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
         check=0
         form = AddMem()
         a = acount.objects.get(id=idA)
@@ -196,7 +243,11 @@ def addmem(request,idA,idT,idC,idS):
         return render(request, 'pages/addmem.html',{'acc': a, 'teacher': t, 'student': st, 'class': gr, 'stcls': cls, 'form': form})
     return HttpResponseRedirect('/')
 def updatescore(request,idA,idT,idC,idS):
-    if LoginCheck.check==idA:
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
         a = acount.objects.get(id=idA)
         t = lecturer.objects.get(id=idT)
         st = student.objects.all()
@@ -214,7 +265,11 @@ def updatescore(request,idA,idT,idC,idS):
         return render(request, 'pages/update.html', {'acc': a, 'teacher':t,'score':score,'student': st, 'class': gr, 'stcls': cls, 'formset': formset,'total':total})
     return HttpResponseRedirect('/')
 def viewclasst(request,idA,idT):
-    if LoginCheck.check==idA:
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
         a = acount.objects.get(id=idA)
         t = lecturer.objects.get(id=idT)
         cls = lecturer_class.objects.all()
@@ -223,7 +278,13 @@ def viewclasst(request,idA,idT):
         return render(request, 'pages/viewclasst.html', {'acc': a, 'teacher':t, 'stcls': cls, 'clsname': clsname,'subjects':sub})
     return HttpResponseRedirect('/')
 def logout(request):
-    LoginCheck.check=-1
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id !=-1:
+        session.logged_id=-1
+        session.save()
     return HttpResponseRedirect('/')
 #REST API Controller
 
