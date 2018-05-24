@@ -18,11 +18,10 @@ class TeacherRegisterForm(forms.Form):
         b.save()
         a.save()
 class CreatClass(forms.Form):
-    subname = forms.CharField(label='Tên Môn Học:', max_length=30)
     subcode = forms.CharField(label='Mã Học Phần:',max_length=30)
     classname = forms.CharField(label='Mã Lớp Học:',max_length=30)
 class AddMem(forms.Form):
     mssv = forms.CharField(label='Nhập mã số sinh viên:',max_length=30)
 class UpdatePoint(forms.Form):
-    gk= forms.FloatField(label='Diem Giua Ki:')
-    ck = forms.FloatField(label='Diem Cuoi Ki:')
+    gk= forms.FloatField(label='Điểm giữa kì:')
+    ck = forms.FloatField(label='Điềm cuối kì:')

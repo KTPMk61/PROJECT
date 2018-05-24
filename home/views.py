@@ -173,7 +173,6 @@ def creatclass(request,idA,idT):
         if request.method =='POST':
             form = CreatClass(request.POST)
             if form.is_valid():
-                subname = form.cleaned_data['subname']
                 subcode = form.cleaned_data['subcode']
                 clsname = form.cleaned_data['classname']
                 for s in clas:
@@ -182,10 +181,12 @@ def creatclass(request,idA,idT):
                         idclass=idclass+1
                 if check==idclass and check!=0:
                     for s1 in clas:
-                        dclass1 = idclass1 + 1
-                    for s2 in data:
-                        if s2.subject_code == subcode:
-                            subjectId = s2.subjectId
+                        idclass1 = idclass1 + 1
+                    try:
+                        s2 = subject.objects.get(subject_code=subcode)
+                    except subject.DoesNotExist:
+                        return render(request,'pages/createclassfailed.html',{'acc': a, 'teacher': t,'form':form})
+                    subjectId = s2.subjectId
                     sub = grade(idcls=idclass1, name=clsname, subjectId=subjectId)
                     sub.save()
                     teacher_class = lecturer_class(classid=idclass1,lecturerId=idT)
