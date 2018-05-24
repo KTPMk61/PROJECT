@@ -1,7 +1,7 @@
 from django import forms
 from .models import *
 class LoginForm(forms.Form):
-    username = forms.CharField(label = 'Tài khoản', max_length= 30)
+    username = forms.CharField(label = 'Tài khoản', max_length= 50)
     password =  forms.CharField(label= 'Mật khẩu',widget= forms.PasswordInput())
 class TeacherRegisterForm(forms.Form):
     fullname = forms.CharField(label = 'Họ Tên', max_length= 30)
