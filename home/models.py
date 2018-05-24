@@ -10,7 +10,6 @@ class lecturer(models.Model):
     name= models.CharField(max_length=40)
     phone_mail=models.CharField(max_length=50)
     institute= models.CharField(max_length=40)
-    birthday= models.CharField(max_length=40)
 class lecturer_class(models.Model):
     lecturerId=models.IntegerField(default=0)
     classid=models.IntegerField(default=0)
