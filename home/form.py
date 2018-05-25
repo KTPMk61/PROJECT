@@ -25,3 +25,5 @@ class AddMem(forms.Form):
 class UpdatePoint(forms.Form):
     gk= forms.FloatField(label='Điểm giữa kì:')
     ck = forms.FloatField(label='Điềm cuối kì:')
+class ChangePassword(forms.Form):
+    npassword = forms.CharField(label='Mật khẩu mới',widget=forms.PasswordInput())

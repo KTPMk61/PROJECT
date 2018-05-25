@@ -1,0 +1,20 @@
+{% extends "pages/base.html" %}
+{% block title %} Sislite-Home {% endblock%}
+{% block content %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Change pass</title>
+</head>
+<br>
+   <center>
+        <form method='POST' action='.'>
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" style="color:#C7CED6">Thay đổi mật khẩu</button>
+        </form>
+   </center>
+<br>
+</div>
+{% endblock %}}

@@ -299,7 +299,23 @@ def view_point(request,idA,idS):
         estudant = student.objects.get(id=idS)
         return render(request,'pages/viewpoint.html',{'cacdiem':cacdiem,'cacmon':cacmon,'acc':acc,'student':estudant})
     return HttpResponseRedirect('/')
-
+def change_password(request,idA):
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
+        form = ChangePassword()
+    if request.method == 'POST':
+        form = ChangePassword(request.POST)
+        if form.is_valid():
+            passw = form.cleaned_data['npassword']
+            acc = acount.objects.get(id=idA)
+            acc.password=passw
+            acc.save()
+            return render(request, 'pages/changedpass.html')
+    return render(request, 'pages/changepass.html', {'form': form})
+    return HttpResponseRedirect('/')
 #REST API Controller
 
 #List (GET + POST)
