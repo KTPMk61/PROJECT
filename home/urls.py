@@ -31,4 +31,5 @@ urlpatterns=[
     path('api/subject/<int:pk>',views.subject_detail),
     path('api/student/<int:pk>',views.student_detail),
     path('logout',views.logout),
+    path('viewpoint/<int:idA>/<int:idS>/',views.view_point)
 ]

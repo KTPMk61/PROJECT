@@ -287,6 +287,19 @@ def logout(request):
         session.logged_id=-1
         session.save()
     return HttpResponseRedirect('/')
+def view_point(request,idA,idS):
+    try:
+        session = logincheck.objects.get(ip_address=get_client_ip(request))
+    except logincheck.DoesNotExist:
+        session = logincheck.objects.create(ip_address=get_client_ip(request))
+    if session.logged_id == idA:
+        acc = acount.objects.get(id=idA)
+        cacmon = subject.objects.all()
+        cacdiem = point.objects.all()
+        estudant = student.objects.get(id=idS)
+        return render(request,'pages/viewpoint.html',{'cacdiem':cacdiem,'cacmon':cacmon,'acc':acc,'student':estudant})
+    return HttpResponseRedirect('/')
+
 #REST API Controller
 
 #List (GET + POST)

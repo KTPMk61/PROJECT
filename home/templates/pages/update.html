@@ -4,22 +4,22 @@
 <center>
 
     <h1>Danh sách học sinh học lớp {{class.name}}</h1>
-    {% for s in stcls %}
-        {% if s.classId is class.idcls%}
-            {% for s1 in student %}
-                {% if s1.id is s.student %}
-                    <h4>{{s1.name}}</h4>
-                    <h5>{{s1.mssv}}</h5>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    {% endfor %}
     <form method='POST' action='.'>
-            {% csrf_token %}
-            {{formset.management_form}}
-                {% for form in formset %}
-                    <h1>{{form}}</h1>
+        {% for s in stcls %}
+            {% if s.classId is class.idcls%}
+                {% for s1 in student %}
+                    {% if s1.id is s.student %}
+                        <h4>{{s1.name}}</h4>
+                        <h5>{{s1.mssv}}</h5>
+                    {% endif %}
                 {% endfor %}
+            {% endif %}
+        {% endfor %}
+                {% csrf_token %}
+                {{formset.management_form}}
+                    {% for form in formset %}
+                        <h1>{{form}}</h1>
+                    {% endfor %}
             <br/>
             <button type="submit" style="color:#C7CED6 ">Cập nhật</button>
     </form>

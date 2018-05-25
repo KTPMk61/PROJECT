@@ -1,0 +1,21 @@
+{% extends "pages/base.html" %}
+{% block title %} Sislite-Student {% endblock%}
+{% block content %}
+<center>
+    <h3>
+        {% for x in cacdiem %}
+            {% if x.studentId is student.id %}
+                {% for y in cacmon %}
+                    {% if y.subjectId is x.subjectId %}
+                        {{y.title}}:
+                    {% endif %}
+                {% endfor %}
+                {{x.point}}
+            {% endif %}
+        {% endfor %}
+    </h3>
+</center>
+<center>
+    <button><a class="thea" href="/student_home/{{acc.id}}/{{student.id}}/" target="_self">Trở lại trang trước</a></button>
+</center>
+{% endblock %}}
