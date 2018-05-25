@@ -1,15 +1,6 @@
-
-<!doctype html>
-<title>Sislite-Student information</title>
-<header>
-    {% load staticfiles %}
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <!--<meta charset="UTF-8">-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type= "text/c"-->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/button.css' %} ">
-<body style="background-image: url('{%static 'images/ts.hust.edu.vn.4.jpg' %}')">
+{% extends "pages/base.html" %}
+{% block title %} Sislite-Student information{% endblock%}
+{% block content %}
   <center>
           <h1>
             Thông tin sinh viên đăng nhập
@@ -21,3 +12,4 @@
       <button><a class="thea" href="/student_home/{{acc.id}}/{{student.id}}/" target="_self">Trở lại trang trước</a></button>
       </center>
 </body>
+{% endblock %}}
