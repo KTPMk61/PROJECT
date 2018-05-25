@@ -233,14 +233,14 @@ def addmem(request,idA,idT,idC,idS):
                     for s1 in cls:
                         if s1.classId == idC:
                             if s1.student == temp.id:
-                                return render(request, 'pages/addmemfail.html',{'acc': a, 'teacher': t, 'student': st, 'class': gr, 'stcls': cls, 'form': form})
+                                return render(request, 'pages/addmemfail.html',{'acc': a, 'teacher': t, 'student': st, 'class': gr, 'stcls': cls, 'form': form,'SubId':idS})
                     mem = student_class(classId=idC, student=temp.id)
                     mem.save()
                     score=point(studentId=temp.id,subjectId=idS,classId = idC)
                     score.save()
                     return render(request, 'pages/addmem.html',{'acc': a, 'teacher': t, 'student': st, 'class': gr, 'stcls': cls, 'form': form,'temp': temp})
                 else :
-                    return render(request,'pages/addmemfail1.html',{'acc': a, 'teacher': t, 'student': st, 'class': gr, 'stcls': cls, 'form': form})
+                    return render(request,'pages/addmemfail1.html',{'acc': a, 'teacher': t, 'student': st, 'class': gr, 'stcls': cls, 'form': form,'SubId':idS})
         return render(request, 'pages/addmem.html',{'acc': a, 'teacher': t, 'student': st, 'class': gr, 'stcls': cls, 'form': form})
     return HttpResponseRedirect('/')
 def updatescore(request,idA,idT,idC,idS):
