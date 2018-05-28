@@ -1,7 +1,6 @@
 {% extends "pages/base.html" %}
 {% block title %} Sislite-Change pass {% endblock%}
 {% block content %}
-<<<<<<< HEAD
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
@@ -17,17 +16,6 @@
             <button><a class="thea" href="/" target="_self">Trở về trang chính</a></button>
         </form>
    </center>
-=======
-<div>
-	<br>
-	   <center>
-	        <form method='POST' action='.'>
-	            {% csrf_token %}
-	            {{form}}
-	            <button type="submit" style="color:#C7CED6">Thay đổi mật khẩu</button>
-	        </form>
-	   </center>
->>>>>>> cd42e62636d431491dce1a6f746b00e8d9ba8190
 <br>
 </div>
 {% endblock %}}
